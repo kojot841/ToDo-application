@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo list</title>
+    <link rel="stylesheet" href="../../static/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Bangers&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<div class="jumbotron">
+    <div class="container">
+        <div id="font_size">
+<h1>ToDo list</h1>
+            <br>
+            <br>
+<ul>
+    {% for item in all_items %}
+        <li> {{ item.content }}
+          <form action="/deleteTodo/{{item.id}}/"
+                style="display: Inline;"
+                method="post">{% csrf_token %}
+              <input type="submit" value="Delete" id="delete_button">
+             <span style="margin-left:2em">  Published: {{ item.whenpublished }}</span>
+          </form>
+        </li>
+
+    {% endfor %}
+</ul>
+
+
+<form action="/addTodo/" method="post" id="submit_button">{% csrf_token %}
+    <input type="text" name="content">
+    <input type="submit" name="Add">
+</form>
+</div>
+    </div>
+    </div>
+</body>
+</html>
